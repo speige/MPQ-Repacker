@@ -73,9 +73,6 @@ If you want to open the map in the World Editor (Warcraft III's default editor),
 To install the plugin, you need to copy it (*.dll files) to the %APPDATA%\MPQ RePacker\Plugins\ folder (Hint: program settings and cheat packs are stored one level higher).
 Enabling plugins in the program is very simple - just click the Plugins button and mark the required plugins.
 
-<img src="Screenshots/Russian/Plugins.png">
-<img src="Screenshots/English/Plugins.png">
-
 <img src="Screenshots/Russian/Plugins/CheatInjector.png">
 <img src="Screenshots/English/Plugins/CheatInjector.png">
 
