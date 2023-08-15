@@ -72,6 +72,27 @@ Enabling plugins in the program is very simple - just click the Plugins button a
 <img src="Screenshots/Russian/Plugins.png">
 <img src="Screenshots/English/Plugins.png">
 
+<img src="Screenshots/Russian/Plugins/CheatInjector.png">
+<img src="Screenshots/English/Plugins/CheatInjector.png">
+
+
+<img src="Screenshots/Russian/Plugins/Extendable Cheatpack Detector.png">
+<img src="Screenshots/English/Plugins/Extendable Cheatpack Detector.png">
+
+
+<img src="Screenshots/Russian/Plugins/PatchW3I.png">
+<img src="Screenshots/English/Plugins/PatchW3I.png">
+
+
+<img src="Screenshots/Russian/Plugins/ScriptAutoreplace.png">
+<img src="Screenshots/English/Plugins/ScriptAutoreplace.png">
+
+<img src="Screenshots/Russian/Plugins/SLKRecover.png">
+<img src="Screenshots/English/Plugins/SLKRecover.png">
+
+<img src="Screenshots/Russian/Plugins/UnSpazzler.png">
+<img src="Screenshots/English/Plugins/UnSpazzler.png">
+
 ## Creating plugins
 To create plugins, you need to know any programming language in which you can write a DLL (Windows Dynamic Link Library), such as C, C ++, C #, Pascal.
 It is possible to use several methods of working with the program:
