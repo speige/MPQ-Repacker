@@ -81,7 +81,7 @@
 				<DependentOn>UPluginForm.h</DependentOn>
 				<BuildOrder>14</BuildOrder>
 			</CppCompile>
-			<RcItem Include="F:\GoooooF\Wc3\CheatSet\X-Deprotect\sfmpq.exe">
+			<RcItem Include="Dependencies\X-Deprotect\sfmpq.exe">
 				<ContainerId>ResourceItem</ContainerId>
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>sfmpqEXE</ResourceId>
@@ -109,7 +109,7 @@
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>SamplePlugin</ResourceId>
 			</RcItem>
-			<RcItem Include="F:\GoooooF\Wc3\CheatSet\X-Deprotect\sfmpq.dll">
+			<RcItem Include="Dependencies\X-Deprotect\sfmpq.dll">
 				<ContainerId>ResourceItem</ContainerId>
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>sfmpqDLL</ResourceId>
@@ -125,7 +125,7 @@
 			<DelphiCompile Include="URecursiveSearch.pas">
 				<BuildOrder>6</BuildOrder>
 			</DelphiCompile>
-			<RcItem Include="F:\GoooooF\Wc3\CheatSet\X-Deprotect\xdep.exe">
+			<RcItem Include="Dependencies\X-Deprotect\xdep.exe">
 				<ContainerId>ResourceItem</ContainerId>
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>xdepEXE</ResourceId>
@@ -135,8 +135,8 @@
 				<DependentOn>UMainForm.h</DependentOn>
 				<BuildOrder>2</BuildOrder>
 			</CppCompile>
-			<None Include="F:\GoooooF\TORRENT\ComponentIce-5_05\FlexCompress\DXe\Patch\AddOnPatch\Delphi 2010 and C++ Builder 2010\FlexCompress.dcu"/>
-			<RcItem Include="F:\GoooooF\Wc3\CheatSet\X-Deprotect\xdep.ini">
+			<None Include="C:\Program Files (x86)\ComponentAce\FlexCompress\Lib\Delphi 2010 and C++ Builder 2010\FlexCompress.dcu"/>
+			<RcItem Include="Dependencies\X-Deprotect\xdep.ini">
 				<ContainerId>ResourceItem</ContainerId>
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>xdepINI</ResourceId>

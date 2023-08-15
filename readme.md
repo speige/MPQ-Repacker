@@ -11,14 +11,13 @@
 - 9 built-in cheat packs; you can add your own
 
 ## Compiling
-Open MPQRepacker.cbproj with C++ Builder 2010
+Open MPQRepacker.cbproj with C++ Builder 2010 (Newer versions of the IDE are not yet supported)
 
 ### Dependencies
-JEDI Code Library https://github.com/project-jedi/jcl & JEDI Visual Component Library https://github.com/project-jedi/jvcl
-	RAD Studio->Tools->GetItManager
-	If component is missing from GetItManager, use install.bat from source code
-FlexCompress https://www.componentace.com/download/download.php?editionid=14
-ZipForge https://www.componentace.com/download/download.php?editionid=12
+JEDI Code Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27211
+JEDI Visual Component Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27212
+FlexCompress for 2010 https://www.componentace.com/download/download.php?editionid=14
+ZipForge for 2010 https://www.componentace.com/download/download.php?editionid=12
 StormLib https://github.com/ladislav-zezula/StormLib
 
 ## Changelog
