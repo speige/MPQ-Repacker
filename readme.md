@@ -10,15 +10,18 @@
 - All settings are saved (no need to set everything up again every time)
 - 9 built-in cheat packs; you can add your own
 
+## Execution
+Run MPQRepacker.exe in Releases/version folder
+
 ## Compiling
 Open MPQRepacker.cbproj with C++ Builder 2010 (Newer versions of the IDE are not yet supported)
 
 ### Dependencies
-JEDI Code Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27211
-JEDI Visual Component Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27212
-FlexCompress for 2010 https://www.componentace.com/download/download.php?editionid=14
-ZipForge for 2010 https://www.componentace.com/download/download.php?editionid=12
-StormLib https://github.com/ladislav-zezula/StormLib
+- JEDI Code Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27211
+- JEDI Visual Component Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27212
+- FlexCompress for 2010 https://www.componentace.com/download/download.php?editionid=14
+- ZipForge for 2010 https://www.componentace.com/download/download.php?editionid=12
+- StormLib https://github.com/ladislav-zezula/StormLib
 
 ## Changelog
 
@@ -69,6 +72,7 @@ If you want to open the map in the World Editor (Warcraft III's default editor),
 ## Using plugins
 To install the plugin, you need to copy it (*.dll files) to the %APPDATA%\MPQ RePacker\Plugins\ folder (Hint: program settings and cheat packs are stored one level higher).
 Enabling plugins in the program is very simple - just click the Plugins button and mark the required plugins.
+
 <img src="Screenshots/Russian/Plugins.png">
 <img src="Screenshots/English/Plugins.png">
 
