@@ -86,11 +86,6 @@
 				<ResourceType>RCData</ResourceType>
 				<ResourceId>sfmpqEXE</ResourceId>
 			</RcItem>
-			<RcItem Include="MPQRePacker.chm">
-				<ContainerId>ResourceItem</ContainerId>
-				<ResourceType>RCData</ResourceType>
-				<ResourceId>HELP</ResourceId>
-			</RcItem>
 			<CppCompile Include="USettingsForm.cpp">
 				<Form>frmSettings</Form>
 				<DependentOn>USettingsForm.h</DependentOn>

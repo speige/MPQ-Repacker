@@ -16,7 +16,6 @@ object MainForm: TMainForm
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
-  OnKeyUp = FormKeyUp
   OnShow = FormShow
   DesignSize = (
     557

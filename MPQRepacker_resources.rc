@@ -1,7 +1,6 @@
 SamplePlugin_source RCData "SamplePlugin_source.zip"
 StormLib RCData "StormLib.dll"
 sfmpqEXE RCData "F:\\GoooooF\\Wc3\\CheatSet\\X-Deprotect\\sfmpq.exe"
-HELP RCData "MPQRePacker.chm"
 CheatPacks RCData "CheatPacks.zip"
 SamplePlugin RCData "SamplePlugin.dll"
 sfmpqDLL RCData "F:\\GoooooF\\Wc3\\CheatSet\\X-Deprotect\\sfmpq.dll"

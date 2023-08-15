@@ -59,7 +59,6 @@ __published:	// IDE-managed Components
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall edtActivatorDblClick(TObject *Sender);
 	void __fastcall edtSourceMapChange(TObject *Sender);
-	void __fastcall FormKeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall btnSettingsClick(TObject *Sender);
 	void __fastcall btnBatchRepackClick(TObject *Sender);
 	void __fastcall btnTestMapClick(TObject *Sender);

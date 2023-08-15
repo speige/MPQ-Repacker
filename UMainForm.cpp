@@ -1809,18 +1809,6 @@ void __fastcall TMainForm::edtSourceMapChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::FormKeyUp(TObject *Sender, WORD &Key, TShiftState Shift)
-
-{
-	const UnicodeString TempFile = GetTempDir() + "MPQRepackerHelp.chm";
-	if(Key == VK_F1)
-	{
-		if(ResUnpack("HELP", TempFile))
-			ShellExec(TempFile);
-    }
-}
-//---------------------------------------------------------------------------
-
 void __fastcall TMainForm::btnSettingsClick(TObject *Sender)
 {
 	frmSettings->ShowModal();
