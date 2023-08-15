@@ -75,7 +75,7 @@ DLLEXPORT int CALLBACK DummySearch()
 {
     /* if(!API_GetFlagState(bInsertCheats) && !API_GetFlagState(bPause))
 	{
-		throw Exception("Ошибка: включите опцию вставки чит-пака или редактирования вручную!");
+		throw Exception("Error: enable the option to insert a cheat pack or edit manually!");
 		return ERROR_INVALID_PARAMETER;
     } */
 	TStrings* s = new TStringList();
@@ -204,13 +204,13 @@ bool PackWithSFMPQ()
 		hMpq = NULL;
 
 		if(bResult)
-			API_WriteLog("SFMPQ: war3map.j успешно упакован!");
+			API_WriteLog("SFMPQ: war3map.j successfully packaged!");
 		else
-			API_WriteLog("SFMPQ: Ошибка упаковки war3map.j!");
+			API_WriteLog("SFMPQ: Packing error war3map.j!");
 	}
 	catch(Exception &e)
 	{
-		API_WriteLog(BUF("Ошибка: " + e.Message));
+		API_WriteLog(BUF("Error: " + e.Message));
 		bResult = false;
 	}
 	FreeDLL(hDll);
@@ -223,16 +223,16 @@ bool PackWithStormLib()
 	if(!HANDLE_VALID(hMpq))
 	{
 		int nError = GetLastError();
-		API_WriteLog(BUF("Ошибка: #" + IntToStr(nError)));
+		API_WriteLog(BUF("Error: #" + IntToStr(nError)));
 		return false;
 	}
 	SFileRemoveFile(hMpq, "war3map.j", 0);
 	SFileRemoveFile(hMpq, "Scripts\\war3map.j", 0);
 	bResult = SFileAddFileEx(hMpq, BUF(API_GetTempPath() + "war3map.j"), "war3map.j", MPQ_FILE_REPLACEEXISTING + MPQ_FILE_COMPRESS + MPQ_FILE_ENCRYPTED, MPQ_COMPRESSION_ZLIB);
 	if(bResult)
-		API_WriteLog("StormLib: war3map.j успешно упакован!");
+		API_WriteLog("StormLib: war3map.j successfully packaged!");
 	else
-		API_WriteLog("StormLib: Ошибка упаковки war3map.j!");
+		API_WriteLog("StormLib: Packing error war3map.j!");
 	SFileCloseArchive(hMpq);
 	return bResult;
 }
@@ -248,10 +248,10 @@ DLLEXPORT int CALLBACK PluginLoad()
 {
 	API_WriteLog("Cheat Injector 1.10 © ZxZ666");
 	API_SetFlagState(bInsertCheats, true);
-	// Оверрайды - замены функций
-	// Код обработки файлов в ReceiveCode помогает программе работать,
-	// А в функциях-оверрайдах он заменяет соответствующие этапы работы программы
-	// Т.е. поиск, распаковку, и упаковку
+	// Overrides - function substitutions
+	// The file handling code in ReceiveCode helps the program work,
+	// And in override functions, it replaces the corresponding stages of the program
+	// i.e. searching, unpacking, and packaging
 	TOverrideInfo inf[3];
 	inf[0].Code = OVERRIDE_SEARCH;
 	inf[0].Function = DummySearch;
@@ -268,9 +268,9 @@ DLLEXPORT int CALLBACK PluginLoad()
 	API_RegisterOverride(inf[0]);
 	//API_RegisterOverride(inf[1]);
 	API_RegisterOverride(inf[2]);
-	// Снимать оверрайды не надо, это сделает сама программа если вы
-	// Правильно указали hPlugin, а если нет - то оверрайды просто
-	// Не зарегистрируются - т.к. программа проверяет правильнось hPlugin
+	// It is not necessary to remove overrides, the program itself will do this if you
+	// Correctly specified hPlugin, and if not, then overrides are simply
+	// Will not register - because program checks if hPlugin is correct
 	return GetLastError();
 }
 DLLEXPORT int CALLBACK PluginUnload()
@@ -283,8 +283,8 @@ DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 	TPluginInfo Result;
 	Result.szName = "Cheat Injector\0";									// Название плагина
 	Result.szAuthor = "ZxZ666\0";										// Автор
-	Result.szDescription = "Плагин, преобразовывающий MPQ RePacker в обычный чит-инжектор.\nВнимание: может не работать с включенной опцией \"Давать карте название из war3map.w3i/wts\"!\0";	// Описание
-    // Настройки прерываний:
+	Result.szDescription = "Plugin that converts MPQ RePacker into a regular cheat injector.\nAttention: may not work with this option enabled \"Give the map a name from war3map.w3i/wts\"!\0";	// Описание
+    // Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFileUnpack = false;	// CODE_FILES_UNPACKED
 	Result.bHookFilePack = false;	// CODE_FILES_PACKED
@@ -296,10 +296,10 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 }
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fwdreason, LPVOID lpvReserved)
 {
-	// Лучше не писать здесь ничего, для этого есть функции PluginLoad() и PluginUnload().
-	// DllMain(DLL_PROCESS_ATTACH) вызывается не только при включении плагина,
-	// но и при загрузке для получения информации о нём (RegisterPlugin),
-	// а PluginLoad/PluginUnload вызываются соответственно только при включении/выключении
+	// It's better not to write anything here, there are PluginLoad() and PluginUnload() functions for this.
+	// DllMain(DLL_PROCESS_ATTACH) is called not only when the plugin is enabled,
+	// but also when loading to get information about it (RegisterPlugin),
+	// and PluginLoad/PluginUnload are called respectively only when enabled/disabled
     return 1;
 }
 //---------------------------------------------------------------------------

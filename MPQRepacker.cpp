@@ -25,7 +25,7 @@ WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 			 ExitProcess(0);
 			 return 0;
 		}
-		// Распаковка StormLib.dll из ресурсов:
+		// Unpack StormLib.dll from resources:
 		UnicodeString StormLibPath = GetTempDir() + "StormLib.dll";
 		if(ResUnpack("StormLib", StormLibPath)) LoadLibrary(StormLibPath.t_str());
 		Application->Initialize();
@@ -34,7 +34,7 @@ WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TfrmPlugins), &frmPlugins);
 		Application->Run();
 		ReleaseMutex(hMutex);
-		ExitProcess(0); // Иначе почему-то остается висеть в списке процессов
+		ExitProcess(0); // Otherwise, for some reason, it remains hanging in the list of processes
 	}
 	catch (Exception &exception)
 	{

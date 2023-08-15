@@ -145,7 +145,7 @@ DLLEXPORT API_RegisterOverride(TOverrideInfo Info)
 
 	if(PluginManager->IndexByHInstance(Info.hPlugin) == -1)
 	{
-		MainForm->mmoLog->Lines->Add("Ошибка регистрации оверрайда: неправильный hPlugin");
+		MainForm->mmoLog->Lines->Add("Override registration error: invalid Plugin");
 		return ERROR_INVALID_PARAMETER;
 	}
 
@@ -157,7 +157,7 @@ DLLEXPORT API_RegisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[PluginManager->IndexByHInstance(Info.hPlugin)];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " конфликтует с плагином " + a + "!");
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
             }
 			PluginManager->Overrides.Search.Enabled = true;
 			PluginManager->Overrides.Search.Function = Info.Function;
@@ -170,8 +170,8 @@ DLLEXPORT API_RegisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[PluginManager->IndexByHInstance(Info.hPlugin)];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " конфликтует с плагином " + a + "!");
-            }
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
+			}
 			PluginManager->Overrides.Unpack.Enabled = true;
 			PluginManager->Overrides.Unpack.Function = Info.Function;
 			PluginManager->Overrides.Unpack.PluginIndex = PluginManager->IndexByHInstance(Info.hPlugin);
@@ -183,8 +183,8 @@ DLLEXPORT API_RegisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[PluginManager->IndexByHInstance(Info.hPlugin)];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " конфликтует с плагином " + a + "!");
-            }
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
+			}
 			PluginManager->Overrides.Pack.Enabled = true;
 			PluginManager->Overrides.Pack.Function = Info.Function;
 			PluginManager->Overrides.Pack.PluginIndex = PluginManager->IndexByHInstance(Info.hPlugin);
@@ -203,7 +203,7 @@ DLLEXPORT API_UnregisterOverride(TOverrideInfo Info)
 	const unsigned i = PluginManager->IndexByHInstance(Info.hPlugin);
 	if(i == -1)
 	{
-		MainForm->mmoLog->Lines->Add("Ошибка снятия оверрайда: неправильный hPlugin");
+		MainForm->mmoLog->Lines->Add("Override removal error: Invalid Plugin");
 		return ERROR_INVALID_PARAMETER;
 	}
 
@@ -215,11 +215,11 @@ DLLEXPORT API_UnregisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[i];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " пытается снять оверрайд плагина " + a + "!");
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
 				return ERROR_ACCESS_DENIED;
 			}
 			PluginManager->Overrides.Search.Enabled = false;
-            break;
+			break;
 		}
 		case OVERRIDE_UNPACK:
 		{
@@ -227,7 +227,7 @@ DLLEXPORT API_UnregisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[i];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " пытается снять оверрайд плагина " + a + "!");
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
 				return ERROR_ACCESS_DENIED;
 			}
 			PluginManager->Overrides.Unpack.Enabled = false;
@@ -239,7 +239,7 @@ DLLEXPORT API_UnregisterOverride(TOverrideInfo Info)
 			{
 				const UnicodeString a = frmPlugins->chklstPlugins->Items->Strings[PluginManager->Overrides.Search.PluginIndex];
 				const UnicodeString b = frmPlugins->chklstPlugins->Items->Strings[i];
-				MainForm->mmoLog->Lines->Add("Плагин " + b + " пытается снять оверрайд плагина " + a + "!");
+				MainForm->mmoLog->Lines->Add("Plugin " + b + " conflicts with plugin " + a + "!");
 				return ERROR_ACCESS_DENIED;
 			}
 			PluginManager->Overrides.Pack.Enabled = false;
@@ -351,7 +351,7 @@ DLLEXPORT API_GetCompression()
 }
 DLLEXPORT API_GetVersion()
 {
-    return nVersion; // Константа (UMainForm.h)
+	return nVersion; // Constant (UMainForm.h)
 }
 //---------------------------------------------------------------------------
 void __fastcall TfrmPlugins::FormKeyUp(TObject *Sender, WORD &Key, TShiftState Shift)

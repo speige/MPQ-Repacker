@@ -69,7 +69,7 @@ __fastcall TPluginFramework::~TPluginFramework()
 }
 void TPluginFramework::UnregisterOverridesByIndex(const int Index)
 {
-	if(Index < 0 || Index > PluginsCount) return; // Неправильный индекс
+	if(Index < 0 || Index > PluginsCount) return; // Wrong index
 	if(Overrides.Search.PluginIndex == Index) Overrides.Search.Enabled = false;
 	if(Overrides.Unpack.PluginIndex == Index) Overrides.Unpack.Enabled = false;
 	if(Overrides.Pack.PluginIndex == Index) Overrides.Pack.Enabled = false;
@@ -106,7 +106,7 @@ void __fastcall TPluginFramework::UnloadPlugin(const int Index)
 {
 	if(this->PluginsList[Index].Enabled)
 	{
-		UnregisterOverridesByIndex(Index); // Снимает все оверрайды отключаемого плагина
+		UnregisterOverridesByIndex(Index); // Removes all overrides of a disabled plugin
 		P_PluginLoad FreeProc = (P_PluginLoad)GetProcAddress(this->PluginsList[Index].hPlugin, "PluginUnload");
 		if(FreeProc != NULL) (*FreeProc)();
 		FreeLibrary(this->PluginsList[Index].hPlugin);
@@ -180,7 +180,7 @@ int __fastcall TPluginFramework::SendCode(const int Index, const int Code)
 int TPluginFramework::CallSettings(const unsigned Index, bool Execute)
 {
 	if(Index < 0 || Index > PluginsCount)
-		return ERROR_INVALID_PARAMETER; // Неправильный индекс
+		return ERROR_INVALID_PARAMETER; // Wrong index
 
 	P_Settings __sfunc = (P_Settings)GetProcAddress(PluginsList[Index].hPlugin, "PluginSettings");
 	if(Execute && HANDLE_VALID(__sfunc)) return (*__sfunc)();

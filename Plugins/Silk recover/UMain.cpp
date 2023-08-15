@@ -25,10 +25,10 @@ DLLEXPORT int CALLBACK PluginUnload()
 DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 {
 	TPluginInfo Result;
-	Result.szName = "SLKRecover\0";									// Название плагина
-	Result.szAuthor = "ZxZ666\0";										// Автор
-	Result.szDescription = "Восстановление объектных файлов (war3map.w3*) из файлов *.slk.\0";	// Описание
-	// Настройки прерываний:
+	Result.szName = "SLKRecover\0";
+	Result.szAuthor = "ZxZ666\0";
+	Result.szDescription = "Restoring object files (war3map.w3*) from files *.slk.\0";
+	// Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFileUnpack = true;	// CODE_FILES_UNPACKED
 	Result.bHookFilePack = false;	// CODE_FILES_PACKED
@@ -133,7 +133,7 @@ void PackFilesToMPQ(TStrings* List, const UnicodeString Archive, const UnicodeSt
 	}
 	else
 	{
-		UnicodeString ErrorMsg = "SLKRecover: ошибка #" + IntToStr((int)GetLastError());
+		UnicodeString ErrorMsg = "SLKRecover: error #" + IntToStr((int)GetLastError());
 		API_WriteLog(ErrorMsg.t_str());
     }
 	if(hMPQ != NULL) SFileCloseArchive(hMPQ);
@@ -162,12 +162,12 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 	const UnicodeString SOOTempDir = API_GetAppDataPath() + "Plugins\\SLKRecover\\";
 	if(!DirectoryExists(SOOTempDir))
 	{
-		Msg("Папка не найдена:\n" + SOOTempDir, true);
+		Msg("Folder not found:\n" + SOOTempDir, true);
 		return -1;
 	}
 	if(SHA1File(SOOTempDir + "Config.ini") != "8144a365adabe65b7f73e49ec8d5d6b27a1415a9")
 	{
-		Msg("Нехорошо изменять файл Config.ini, это нечестно", true);
+		Msg("It's not good to modify a file Config.ini, this is unfair", true);
 		ResUnpack("ConfigINI", SOOTempDir + "Config.ini", HInstance);
     }
 	const UnicodeString SOOOutDir = SOOTempDir + "OUT\\";
@@ -179,12 +179,12 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 	FiltrateFileList(s, ".slk");
 	if(s->Count)
 	{
-		API_WriteLog("Обработка SLKRecover'ом...");
+		API_WriteLog("Processing with SLKRecover...");
 		LocalizeFileList(s, MPQRepackerTempDir);
 		PackFilesToMPQ(s, TempMap, MPQRepackerTempDir);
 		ExecuteProcess(SOOTempDir + "Silk Object Optimizer.exe", "", INFINITE, SOOTempDir);
 		CopyAll(SOOOutDir, MPQRepackerTempDir, "war3map.w3*");
-		API_WriteLog("Обработка SLKRecover'ом завершена!");
+		API_WriteLog("SLKRecover processing completed!");
 	}
 	LOOP(s->Count)
 	{
@@ -200,10 +200,10 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 }
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fwdreason, LPVOID lpvReserved)
 {
-	// Лучше не писать здесь ничего, для этого есть функции PluginLoad() и PluginUnload().
-	// DllMain(DLL_PROCESS_ATTACH) вызывается не только при включении плагина,
-	// но и при загрузке для получения информации о нём (RegisterPlugin),
-	// а PluginLoad/PluginUnload вызываются соответственно только при включении/выключении
+	// It's better not to write anything here, there are PluginLoad() and PluginUnload() functions for this.
+	// DllMain(DLL_PROCESS_ATTACH) is called not only when the plugin is enabled,
+	// but also when loading to get information about it (RegisterPlugin),
+	// and PluginLoad/PluginUnload are called respectively only when enabled/disabled
     return 1;
 }
 //---------------------------------------------------------------------------

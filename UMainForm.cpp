@@ -77,7 +77,7 @@ bool StreamToStrings(TStream* From, TStrings* To, bool Clear = false)
 }
 void RemoveDoubles(TStrings* S)
 {
-	return; // Не выполнять функцию
+	return; // Cannot perform a function
 	TStrings* __S = new TStringList();
 	for(int i = 0; i < S->Count-1; i++)
 		if(!StrInList(__S, S->Strings[i])) __S->Add(S->Strings[i]);
@@ -104,7 +104,7 @@ void AnalyzeAllUnknown(TStrings* List, const UnicodeString Archive)
 		Application->ProcessMessages();
 		if(FileExists(TempDir + __s->Strings[i]))
 		{
-//			WriteLog("Анализ " + __s->Strings[i] + "...");
+//			WriteLog("Analysis " + __s->Strings[i] + "...");
 			bool bResult = false;
 			const UnicodeString File = TempDir + __s->Strings[i];
 			const UnicodeString Ext = ExtractFileExt(File);
@@ -126,7 +126,7 @@ void AnalyzeAllUnknown(TStrings* List, const UnicodeString Archive)
 	s->Free();
 	__s->Free();
 }
-void AnalyzeAllModels(TStrings* FileList, const UnicodeString Archive) // Анализирует все файлы MDX и MDL (в них можно найти имена файлов текстур)
+void AnalyzeAllModels(TStrings* FileList, const UnicodeString Archive) // Parses all MDX and MDL files (you can find texture file names in them)
 {
 	TStrings* s = new TStringList(), *__s = new TStringList();
 	for(int i = 0; i < FileList->Count; i++)
@@ -137,14 +137,14 @@ void AnalyzeAllModels(TStrings* FileList, const UnicodeString Archive) // Анализ
 		{
 			WriteLog("Анализ " + FileList->Strings[i] + "...");
 			AnalyzeBinaryFile(s, Archive, FileList->Strings[i]);
-			__s->Add(FileList->Strings[i]); // Список проанализированных файлов
+			__s->Add(FileList->Strings[i]); // List of analyzed files
 		}
 	}
 	MergeLists(s, FileList);
 	__s->Free();
 	s->Free();
 }
-void AnalyzeAllTextFiles(TStrings* FileList, const UnicodeString Archive) // Анализирует все файлы TXT
+void AnalyzeAllTextFiles(TStrings* FileList, const UnicodeString Archive) // Analyzes all files TXT
 {
 	TStrings* s = new TStringList(), *__s = new TStringList();
 	for(int i = 0; i < FileList->Count; i++)
@@ -155,7 +155,7 @@ void AnalyzeAllTextFiles(TStrings* FileList, const UnicodeString Archive) // Ана
 		{
 			WriteLog("Анализ " + FileList->Strings[i] + "...");
 			AnalyzeTextFile(s, Archive, FileList->Strings[i]);
-			__s->Add(FileList->Strings[i]); // Список проанализированных файлов
+			__s->Add(FileList->Strings[i]); // List of analyzed files
 		}
 	}
 	MergeLists(s, FileList);
@@ -185,7 +185,7 @@ bool AnalyzeAllSLK(TStrings* List, const UnicodeString Archive)
 			UnicodeString ScriptText = s->Text;
 			s->Clear();
 
-			// Ищем все строковые константы (хуйню в двойных кавычках):
+			// Let's take all string constants (found in double quotes):
 			int Pos1 = PosEx("\"", ScriptText, 1), Pos2 = PosEx("\"", ScriptText, Pos1 + 1);
 			while((Pos1 && Pos2) && (Pos1 < ScriptText.Length() && Pos2 < ScriptText.Length()))
 			{
@@ -205,7 +205,7 @@ bool AnalyzeAllSLK(TStrings* List, const UnicodeString Archive)
 				catch(...){break;}
 			}
 			analyzed->Add(List->Strings[i]);
-			if(bDebugSaveNames) s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(List->Strings[i]) + ".txt"); // Отладка
+			if(bDebugSaveNames) s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(List->Strings[i]) + ".txt"); // Debugging
 			AutoSearch(s, Archive);
 			MergeLists(s, List);
 			DeleteFile(ScriptFile);
@@ -221,9 +221,9 @@ void AutoSearch(TStrings* List, const UnicodeString Archive)
 	TStrings* s = new TStringList();
 	for(int i = 0; i < List->Count; i++)
 	{
-		// Уголок копипаста
+		// Copy-paste corner
 		Application->ProcessMessages();
-		if(List->Strings[i].Pos("BTN")) // Иконки кнопок
+		if(List->Strings[i].Pos("BTN")) // Button icons
 		{
 			UnicodeString ReplacedStr = " ";
 			//----------------------------------------------------
@@ -458,7 +458,7 @@ bool InsertCheats(const UnicodeString War3mapJ, const UnicodeString CP, UnicodeS
 		InsertListToList(__s, s, nInsertIndex);
 
 		nInsertIndex = FindStr(s, "function main takes nothing returns nothing") + 1;
-		while(s->Strings[nInsertIndex].SubString(1,5) == "local") nInsertIndex++; // После локалов
+		while(s->Strings[nInsertIndex].SubString(1,5) == "local") nInsertIndex++; // After locals
 		__s->LoadFromFile(CPPath + "function main.txt");
 		InsertListToList(__s, s, nInsertIndex);
 
@@ -507,8 +507,8 @@ BOOL AddFileToMPQWithSFMPQ(const UnicodeString Archive, const UnicodeString File
 		BOOL bResult = (*__add)(hMpq, BUF(File), BUF(ArcFile), MAFA_ENCRYPT + MAFA_COMPRESS + MAFA_REPLACE_EXISTING, MAFA_COMPRESS_DEFLATE, Z_BEST_COMPRESSION);
 		if(HANDLE_VALID(hMpq)) (*__close)(hMpq, 0);
 		// Debug:
-		if(bResult) WriteLog("Файл " + ArcFile + " упакован в архив с помощью SFMPQ!");
-		else WriteLog("Ошибка упаковки файла с помощью SFMPQ.");
+		if(bResult) WriteLog("Successfully archived " + ArcFile + " with SFMPQ!");
+		else WriteLog("Error adding file to MPQ map archive package file with SFMPQ.");
 		//--------
 		FreeDLL(hDll);
 		return bResult;
@@ -547,7 +547,7 @@ void TMainForm::FindCheatPacks()
 	if(cbbCheatPack->Items->Count < 1)
 	{
 		grpCheats->Enabled = false;
-		cbbCheatPack->Text = "Читы не найдены";
+		cbbCheatPack->Text = "No cheats found";
 		chkInsertCheats->Checked = false;
 		chkInsertCheats->Enabled = false;
     }
@@ -580,7 +580,7 @@ bool ExtractUnknownFiles(UnicodeString Archive, TStrings* List, const UnicodeStr
 		unsigned int nFileCount = GetFileCount(hMpq);
 		for(int i = 0; i < nFileCount; i++)
 		{
-			if(FEntry[i].szFileName == NULL) // Имя файла не определено
+			if(FEntry[i].szFileName == NULL) // File name not defined
 			{
 				HANDLE hFile = NULL;
 				SFileOpenFileEx(hMpq, (const char*)FEntry[i].dwHashIndex, SFILE_OPEN_FROM_MPQ | SFILE_OPEN_BY_INDEX, &hFile);
@@ -604,7 +604,7 @@ bool ExtractUnknownFiles(UnicodeString Archive, TStrings* List, const UnicodeStr
 					if(FileExists(szFileName) && GetFileSize(szFileName) == 0) DeleteFile(szFileName);
 					else
 					{
-						if(bWriteLog) WriteLog("Распаковка " + NewFilename + "...");
+						if(bWriteLog) WriteLog("Unpacking " + NewFilename + "...");
 						nLastUnpackedFilesCount++;
 					}
 					List->Add(NewFilename);
@@ -720,7 +720,7 @@ void ChooseRule(const UnicodeString File, DWORD* Flags, DWORD* Compression)
 		*Compression = CompIndexToCompressionFlag(nCompression);
 		return;
 	}
-	// Какой-то другой файл
+	// Some other file
 	*Flags = MPQ_FILE_COMPRESS + MPQ_FILE_ENCRYPTED;
 	*Compression = CompIndexToCompressionFlag(nCompression);
 }
@@ -756,7 +756,7 @@ void WriteWar3mapUnitsDOO(const UnicodeString Dir)
 	{
         #include "war3mapUnits.doo.inc"
 	};
-	if(FileExists(FullPath)) return; // Не заменять
+	if(FileExists(FullPath)) return; // Do not replace
 	else
 	{
 		Classes::TFileStream* fs = new Classes::TFileStream(FullPath, fmCreate);
@@ -775,7 +775,7 @@ bool DeobfuscateJass(TStrings* JFile)
 //		{
 //			if(JFile->Strings[i].Length() && JFile->Strings[i][1] != '\t') JFile->Strings[i] = "\t" + JFile->Strings[i];
 //		}
-		//elseJFile->Insert(i, ""); // Вставляем пустую строку
+		//elseJFile->Insert(i, ""); // Inserting an empty line
 		if(JFile->Strings[i] == "function main takes nothing returns nothing") JFile->Strings[i] == "function main2 takes nothing returns nothing";
 	}
 	return true;
@@ -817,7 +817,7 @@ bool CreateMapWithXDep(const UnicodeString CreatedMap, const UnicodeString DirWi
 		}
 		const UnicodeString OldWorkingDir = GetCurrentDir();
 		ChDir(Dir);
-		if(bWriteLog) WriteLog("Упаковка файлов...");
+		if(bWriteLog) WriteLog("Packing files...");
 		ExecuteProcess(Exe, "", INFINITE);
 		Sleep(100);
 		FORM_TO_FRONT(MainForm);
@@ -830,7 +830,7 @@ bool CreateMapWithXDep(const UnicodeString CreatedMap, const UnicodeString DirWi
 		DeleteFile(SfmpqDll);
 		if(FileExists(ProcessedMap))
 		{
-			if(bWriteLog) WriteLog("Карта успешно собрана!");
+			if(bWriteLog) WriteLog("Map completed successfully!");
 			if(FileExists(CreatedMap)) DeleteFile(CreatedMap);
 			MoveFile(ProcessedMap, CreatedMap);
 			DeleteNonEmptyDir(Dir, MainForm->Handle);
@@ -838,7 +838,7 @@ bool CreateMapWithXDep(const UnicodeString CreatedMap, const UnicodeString DirWi
 		}
 		else
 		{
-			if(bWriteLog) WriteLog("Ошибка сборки карты.");
+			if(bWriteLog) WriteLog("Map assembly error.");
 			DeleteNonEmptyDir(Dir, MainForm->Handle);
 			return false;
         }
@@ -883,7 +883,7 @@ bool PackFilesToMPQ(UnicodeString Archive, const UnicodeString Dir = AppPath + "
 	if(!bReturn) nError = GetLastError();
 	if(hMpq == NULL) return false;
 
-	WriteLog("Упаковка файлов в " + ExtractFileName(Archive));
+	WriteLog("Packing files in " + ExtractFileName(Archive));
 	Sleep(100);
 	HANDLE hTempFile = 0;
 	try
@@ -902,11 +902,11 @@ bool PackFilesToMPQ(UnicodeString Archive, const UnicodeString Dir = AppPath + "
          	s->Strings[i] = "war3map.j";
 
 		if(AddFileToMPQ(hMpq, Dir + s->Strings[i], s->Strings[i]))
-			WriteLog("Упаковка " + s->Strings[i] + "...");
+			WriteLog("Packaging " + s->Strings[i] + "...");
 		else
 		{
 			nError = GetLastError();
-			WriteLog("Ошибка упаковки " + s->Strings[i] + " (Код ошибки: " + IntToStr(nError) + ")");
+			WriteLog("Packing error " + s->Strings[i] + " (Error code: " + IntToStr(nError) + ")");
 			if(hMpq != NULL)
 			{
 				SFileCloseArchive(hMpq);
@@ -917,7 +917,7 @@ bool PackFilesToMPQ(UnicodeString Archive, const UnicodeString Dir = AppPath + "
 			// 111111111111111111111111
         }
 	}
-	WriteLog("Упаковка завершена");
+	WriteLog("Packing completed");
 	AddFilelistToMPQ(s, hMpq);
 	SFileCompactArchive(hMpq);
 	SFileSetAttributes(hMpq, MPQ_ATTRIBUTE_ALL);
@@ -948,26 +948,26 @@ bool MPQIsValid(UnicodeString Archive, bool bWriteLog)
 		switch(nError)
 		{
 			case ERROR_FILE_CORRUPT:
-				s = "Файл поврежден!";
+				s = "File is corrupted!";
 				break;
 			case ERROR_BAD_FORMAT:
-				s = "Невозможно открыть файл как MPQ архив!";
+				s = "Unable to open file as MPQ archive!";
 				break;
 			case ERROR_NOT_ENOUGH_MEMORY:
-				s = "Не хватает памяти!";
+				s = "Out of memory!";
 				break;
 			case ERROR_AVI_FILE:
-				s = "AVI файл с расширением MPQ!";
+				s = "AVI file extension MPQ!";
 				break;
 			case ERROR_ACCESS_DENIED:
-				s = "Отказано в доступе.";
+				s = "Access Denied.";
 				break;
 			case ERROR_SHARING_VIOLATION:
 			case ERROR_LOCK_VIOLATION:
-				s = "Файл уже открыт в другой программе.";
+				s = "The file is already open in another program.";
 				break;
 			default:
-				s = "Неизвестная ошибка! (Код ошибки: " + IntToStr(nError) + ")";
+				s = "Unknown error! (Error code: " + IntToStr(nError) + ")";
 		}
 		s = "Ошибка: " + s;
 		WriteLog(s);
@@ -990,7 +990,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 	{
 		if(!FileExists(Archive))
 		{
-			if(bWriteLog) WriteLog("Файл " + ExtractFileName(Archive) + " не найден!");
+			if(bWriteLog) WriteLog("fail " + ExtractFileName(Archive) + " not found!");
 			return false;
 		}
 		TStrings* s = new TStringList(), *s1 = new TStringList();
@@ -1001,7 +1001,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 			if(!DirectoryExists(Dir)) CreateDir(Dir);
 			SetHiddenAttribute(Dir, true);
 			// if(FileExists(AppDataPath + "FILELIST_CACHE.txt")) LoadExternalListfile(s, AppDataPath + "FILELIST_CACHE.txt");
-			// Ищем имена файлов
+			// File Names
 			if(bAnalyze[ANALYZE_LISTFILE])
 			{
 				ReadInternalListfile(s, Archive);
@@ -1009,7 +1009,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 			if(FileExists(Listfile))
 			{
 				LoadExternalListfile(s, Listfile);
-				if(bWriteLog) WriteLog("Загружен внешний листфайл: " + Listfile);
+				if(bWriteLog) WriteLog("External list file loaded: " + Listfile);
 			}
 			else if(!bDontUseInternalListfile)
 			{
@@ -1021,7 +1021,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 			if(bAnalyze[ANALYZE_JSCRIPT])
 			{
 				AnalyzeMainScript(s, Archive);
-				if(bWriteLog) WriteLog("Анализ war3map.j...");
+				if(bWriteLog) WriteLog("Analysis war3map.j...");
 				AutoSearch(s, Archive);
 			}
 			if(bAnalyze[ANALYZE_W3_BIN])
@@ -1029,13 +1029,13 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 				for(int i = 0; i < sizeof(BinaryFiles) / sizeof(UnicodeString); i++)
 				{
 					Application->ProcessMessages();
-					if(VerifyFile(Archive, BinaryFiles[i]) && AnalyzeBinaryFile(s, Archive, BinaryFiles[i], false) && bWriteLog) WriteLog("Анализ " + BinaryFiles[i] + "...");
+					if(VerifyFile(Archive, BinaryFiles[i]) && AnalyzeBinaryFile(s, Archive, BinaryFiles[i], false) && bWriteLog) WriteLog("Analysis " + BinaryFiles[i] + "...");
 				}
 			}
             if(bAnalyze[ANALYZE_IMPLIST])
 			{
 				AnalyzeBinaryFile(s, Archive, "war3map.imp");
-				if(bWriteLog) WriteLog("Анализ war3map.imp...");
+				if(bWriteLog) WriteLog("Analysis war3map.imp...");
 			}
 			AutoSearch(s, Archive);
 			if(bAnalyze[ANALYZE_TXT])
@@ -1054,11 +1054,11 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 				AutoSearch(s, Archive);
 			}
 			if(bFullAnalyze) AnalyzeAllUnknown(s, Archive);
-			if(bWriteLog) WriteLog("Генерация war3map.imp...");
+			if(bWriteLog) WriteLog("Generation war3map.imp...");
 			GenerateWar3mapIMP(s, Archive, Dir);
-			// Распаковка неизвестных файлов:
+			// Unpacking unknown files:
 			if(bUnpackUnknown) ExtractUnknownFiles(Archive, s, Dir);
-			// Распаковка известных файлов:
+			// Unpacking Known Files:
 			s->SaveToFile(AppDataPath + "FILELIST_CACHE.txt");
 			nLastUnpackedFilesCount = 0;
 			PluginManager->SendCodeToAll(CODE_FILE_SEARCH_END, pfcFileFindHooked);
@@ -1088,7 +1088,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 					const int r = ExtractFile(hMPQ, s->Strings[i], Dir + s->Strings[i]);
 					if(r == ERROR_SUCCESS)
 					{
-						if(bWriteLog) WriteLog("Распаковка " + s->Strings[i] + "...");
+						if(bWriteLog) WriteLog("Unpacking " + s->Strings[i] + "...");
 						s1->Add(s->Strings[i]);
 						nLastUnpackedFilesCount++;
 					}
@@ -1098,24 +1098,24 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 			s1->Text = ReplaceStr(s1->Text, "Scripts\\war3map.j", "war3map.j");
 			s1->SaveToFile(Dir + "(listfile)");
 			const UnicodeString FilesFound = FloatToStrF(Ratio(GetFileCount(Archive), nLastUnpackedFilesCount), ffGeneral, 3, 1) + "%";
-			if(bWriteLog) WriteLog("Распаковано " + IntToStr((int)nLastUnpackedFilesCount) + " файлов. (" + FilesFound + ")");
+			if(bWriteLog) WriteLog("Unpacked " + IntToStr((int)nLastUnpackedFilesCount) + " files. (" + FilesFound + ")");
 		}
 		else
 		{
 			nLastUnpackedFilesCount = (*PluginManager->Overrides.Unpack.Function)();
         }
 		PluginManager->SendCodeToAll(CODE_FILES_UNPACKED, pfcFileUnpackHooked);
-		// Пост-обработка
+		// Post-Processing
 		if(FileExists(Dir + "Scripts\\war3map.j"))
 		{
 			if(FileExists(Dir + "war3map.j")) DeleteFile(Dir + "war3map.j");
 			RenameFile(Dir + "Scripts\\war3map.j", Dir + "war3map.j");
         }
-		if(bWriteLog) WriteLog("Удаление (attributes)...");
+		if(bWriteLog) WriteLog("Delete (attributes)...");
 		DeleteFile(Dir + "(attributes)");
 		if(bRewriteW3I) WriteWar3mapW3I(Dir);
 		if(bRewriteDOO) WriteWar3mapUnitsDOO(Dir);
-		if(bWriteLog) WriteLog("Карта успешно распакована!");
+		if(bWriteLog) WriteLog("Map successfully unpacked!");
 		// s->SaveToFile("FILELIST_CACHE.txt");
 		s1->Free();
 		s->Free();
@@ -1123,7 +1123,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 	}
 	catch(Exception &e)
 	{
-		Msg("Ошибка: " + e.Message, true);
+		Msg("Error: " + e.Message, true);
         return false;
     }
 }
@@ -1146,7 +1146,7 @@ static int ExtractFile(HANDLE hMpq, UnicodeString ArcFile, UnicodeString SavedFi
     if(nError == ERROR_SUCCESS)
     {
         if(!SFileOpenFileEx(hMpq, szArchivedFile, 0, &hFile))
-            nError = GetLastError();
+			nError = GetLastError();
     }
 
     // Create the target file
@@ -1294,7 +1294,7 @@ bool AnalyzeMainScript(TStrings* List, const UnicodeString Archive)
 		UnicodeString ScriptText = s->Text;
 		s->Clear();
 
-		// Ищем все строковые константы (хуйню в двойных кавычках):
+		// Let's take all string constants (found in double quotes):
 		int Pos1 = PosEx("\"", ScriptText, 1), Pos2 = PosEx("\"", ScriptText, Pos1 + 1);
 		while((Pos1 && Pos2) && (Pos1 < ScriptText.Length() && Pos2 < ScriptText.Length()))
 		{    
@@ -1313,7 +1313,7 @@ bool AnalyzeMainScript(TStrings* List, const UnicodeString Archive)
 			}
 			catch(...){break;}
 		}
-		if(bDebugSaveNames) s->SaveToFile(GetTempDir() + "MPQRepacker\\war3map.j.txt"); // Отладка
+		if(bDebugSaveNames) s->SaveToFile(GetTempDir() + "MPQRepacker\\war3map.j.txt"); // Debugging
 		AutoSearch(s, Archive);
 		MergeLists(s, List);
 		s->Free();
@@ -1343,7 +1343,7 @@ bool AnalyzeTextFile(TStrings* List, const UnicodeString Archive, const UnicodeS
 		UnicodeString ScriptText = s->Text;
 		s->Clear();
 
-		// Ищем все строки между равно и концом строки
+		// We take all lines between equal and end of line
 		const UnicodeString LineEnd = "\r\n";
 		int Pos1 = PosEx("=", ScriptText, 1), Pos2 = PosEx(LineEnd, ScriptText, Pos1 + 1);
 		while((Pos1 && Pos2) && (Pos1 < ScriptText.Length() && Pos2 < ScriptText.Length()))
@@ -1365,7 +1365,7 @@ bool AnalyzeTextFile(TStrings* List, const UnicodeString Archive, const UnicodeS
 		}
 		AutoSearch(s, Archive);
 		MergeLists(s, List);
-		if(bDebugSaveNames)	s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(File) + ".txt"); // Отладка
+		if(bDebugSaveNames)	s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(File) + ".txt"); // Debugging
 		s->Free();
 		DeleteFile(ScriptFile);
 		return true;
@@ -1390,7 +1390,7 @@ bool AnalyzeBinaryFile(TStrings* List, const UnicodeString Archive, const Unicod
 			ScriptFile = GetTempDir() + File;
 			if(ExtractFile(Archive, File, ScriptFile) != ERROR_SUCCESS)
 			{
-                WriteLog("Ошибка распаковки файла для анализа: " + File);
+				WriteLog("Error unpacking the file for analysis: " + File);
 				VCL_FREE(s);
 				return false;
 			}
@@ -1398,14 +1398,14 @@ bool AnalyzeBinaryFile(TStrings* List, const UnicodeString Archive, const Unicod
 		else ScriptFile = File;
 
 		DWORD dwHeader = ReadFileHeader(ScriptFile);
-		if(dwHeader == 0x5733504D || dwHeader == 0x31504C42) return false; // MP3/BLP файл
+		if(dwHeader == 0x5733504D || dwHeader == 0x31504C42) return false; // MP3/BLP file
 
 		Classes::TFileStream* fs = new Classes::TFileStream(ScriptFile, fmOpenRead);
 		szBuffer = (BYTE*)malloc(fs->Size);
 		fs->Read(szBuffer, fs->Size);
 		nBufferSize = fs->Size;
 		VCL_FREE(fs);
-		// Ищем все строки между NULL'ами:
+		// We take all strings between NULLs:
 		const BYTE NullChar = NULL;
 		int Pos1 = __Pos(szBuffer, nBufferSize, NullChar, 0), Pos2 = __Pos(szBuffer, nBufferSize, NullChar, Pos1 + 1);
 		while((Pos1 && Pos2) && (Pos1 < nBufferSize && Pos2 < nBufferSize))
@@ -1422,7 +1422,7 @@ bool AnalyzeBinaryFile(TStrings* List, const UnicodeString Archive, const Unicod
 			}
             Pos1++;
 		}
-		if(bDebugSaveNames)	s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(File) + ".txt"); // Отладка
+		if(bDebugSaveNames)	s->SaveToFile(GetTempDir() + "MPQRepacker\\" + ExtractFileName(File) + ".txt"); // Debugging
 		AutoSearch(s, Archive);
 		MergeLists(s, List);
 		s->Free();
@@ -1466,7 +1466,7 @@ UnicodeString FindTrigstrNumInW3I()
 	fs->Read(szBuffer, fs->Size);
 	DWORD i = 13;
 	while(szBuffer[i] != '_') i++;
-	i++; // После _
+	i++; // After _
 	UnicodeString Result = "";
 	while(szBuffer[i] != 0)
 	{
@@ -1486,14 +1486,14 @@ UnicodeString ToUTF8(const UnicodeString Source)
 
 void RewriteMap(UnicodeString Map, UnicodeString NewName)
 {
-	DWORD nPos = 8 + nDefaultMapNameSize; // nDefaultMapNameSize - длинна стандартного названия карты
+	DWORD nPos = 8 + nDefaultMapNameSize; // nDefaultMapNameSize - length of the standard map name
 	Classes::TFileStream* fs = new Classes::TFileStream(Map, fmOpenReadWrite);
 	DWORD nSize = fs->Size - nPos;
 	char* szBuffer = (char*)malloc(nSize);
 	fs->Position = nPos;
 	fs->Read(szBuffer, nSize);
 	char* szMapName = UTF8String(BUF(NewName)).c_str();
-	fs->Size = 0; // Стираем все
+	fs->Size = 0; // We erase everything
 	char Header[8] = "HM3W\0\0\0\0";
 	fs->Write(Header, 8);
 	fs->Write(szMapName, NewName.Length());
@@ -1517,7 +1517,7 @@ UnicodeString FindTriggerString(const UnicodeString War3mapWTS, const UnicodeStr
 {
 	TStrings* s = new TStringList();
 	s->Text = __ReadFile(War3mapWTS);
-	int i = FindStr(s, "STRING " + Num) + 2; // После этой строки и {
+	int i = FindStr(s, "STRING " + Num) + 2; // After this line and {
 	UnicodeString Result = "";
 	while(s->Strings[i] != "}")
 	{
@@ -1575,8 +1575,8 @@ bool RePackMap(const UnicodeString SourceMap, const UnicodeString DestMap,
 	bool bResult = MPQIsValid(SourceMap);
 	if(!bResult)
 	{
-		// WriteLog("Ошибка распаковки: файл " + ExtractFileName(SourceMap) + " не является MPQ архивом.");
-		WriteLog("Ошибка распаковки: невозможно открыть файл " + ExtractFileName(SourceMap) + "!");
+		// WriteLog("Unpacking error: file " + ExtractFileName(SourceMap) + " not an MPQ archive.");
+		WriteLog("Unpacking error: Unable to open file " + ExtractFileName(SourceMap) + "!");
 		return false;
 	}
 
@@ -1591,11 +1591,11 @@ bool RePackMap(const UnicodeString SourceMap, const UnicodeString DestMap,
 		FullRemoveDir(TempDir, true, false, false);
 		DeleteNonEmptyDir(TempDir);
 	}
-	WriteLog("\r\nПерепаковка карты " + ExtractFileName(SourceMap) + ":");
+	WriteLog("\r\nMap repacking " + ExtractFileName(SourceMap) + ":");
 	bResult = ExtractAllFiles(SourceMap, bPatchW3I, bEmptyDOO, bUnpackUnknown, TempDir, ListFile);
 	if(!bResult)
 	{
-		WriteLog("Ошибка распаковки. Операция прервана.");
+		WriteLog("Unpacking error. Operation interrupted.");
 		return false;
 	}
 	DeleteFile(DestMap);
@@ -1614,24 +1614,24 @@ bool RePackMap(const UnicodeString SourceMap, const UnicodeString DestMap,
 				MapName = FindTriggerString(TempDir + "war3map.wts", TrigstrNum);
             }
 //			MapName = ReservedSize(DeleteTransfers(MapName), nDefaultMapNameSize);
-			if(MapName.Length()) WriteLog("Реальное имя карты найдено: " + MapName);
+			if(MapName.Length()) WriteLog("Real map name found: " + MapName);
 			else
 			{
-				Msg("Реальное имя карты не найдено!", true);
-				InputBox("Имя карты", "Введите реальное имя карты:", "");
+				Msg("Real map name not found!", true);
+				InputBox("Map name", "Enter real map name:", "");
 			}
 		}
 		catch(Exception &e){Msg(e.Message);}
 	}
 	if(bInsertCheats)
 	{
-		WriteLog("Вставка чит-пака...");
+		WriteLog("Inserting a cheat-pack...");
 		if(InsertCheats(TempDir + "war3map.j", CheatPack, Activator))
-			WriteLog("Чит-пак успешно вставлен в скрипт карты!");
+			WriteLog("The cheatpack has been successfully inserted into the map script!");
 		else
-			WriteLog("Ошибка вставки чит-пака.");
+			WriteLog("Error inserting cheat-pack.");
     }
-	if(bManualEdit) Msg("Внесите необходимые поправки в файлы карты и нажмите ОК.");
+	if(bManualEdit) Msg("Enter the necessary corrections in the map files and press OK.");
 	if(!PluginManager->Overrides.Pack.Enabled)
 	{
 		if(bUseXDep) bResult = CreateMapWithXDep(DestMap, TempDir);
@@ -1648,7 +1648,7 @@ bool RePackMap(const UnicodeString SourceMap, const UnicodeString DestMap,
 			RewriteMap(DestMap, MapName);
 			SetMapAttributes(DestMap, nPlayers, nFlags, NULL);
         }
-		else WriteLog("Ошибка: Упакованная карта не найдена!");
+		else WriteLog("Error: Packed map not found!");
 	}
 	else SetMapAttributes(DestMap, nPlayers, nFlags, szMapName);
 	PluginManager->SendCodeToAll(CODE_FILES_PACKED, pfcFilePackHooked);
@@ -1660,8 +1660,8 @@ bool RePackMap(const UnicodeString SourceMap, const UnicodeString DestMap,
 		DeleteNonEmptyDir(TempDir);
 	}
 
-	if(!bResult) WriteLog("Ошибка упаковки!");
-	else WriteLog("Перепаковка карты завершена!");
+	if(!bResult) WriteLog("Packing error!");
+	else WriteLog("Map repacking completed!");
 
 	return bResult;
 }
@@ -1674,7 +1674,7 @@ void __fastcall TMainForm::btnRePackClick(TObject *Sender)
 	{
 		if(!FileExists(edtSourceMap->Text))
 		{
-			Msg("Файл не найден: " + edtSourceMap->Text, true);
+			Msg("File not found: " + edtSourceMap->Text, true);
 			// return;
 		}
 		else
@@ -1703,13 +1703,13 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 //---------------------------------------------------------------------------
 void TMainForm::LoadSettings()
 {
-	// Стандартные пути:
+	// Standard Paths:
 	TRegistry* R = new TRegistry();
 	R->RootKey = HKEY_LOCAL_MACHINE;
 	if(R->OpenKey("SOFTWARE\\Blizzard Entertainment\\Warcraft III", false))
 	{
 		UnicodeString War3Path = IncludeTrailingBackslash(R->ReadString("InstallPath"));
-		if(FileExists(War3Path + "war3.exe")) // Проверка правильности пути
+		if(FileExists(War3Path + "war3.exe")) // Checking if the path is correct
 		{
 			edtSourceMap->InitialDir = War3Path + "Maps\\Download\\";
 			edtSourceMap->Text = edtSourceMap->InitialDir + "\\Map.w3x";
@@ -1774,7 +1774,7 @@ void __fastcall TMainForm::btnCommandsClick(TObject *Sender)
 	}
 	else
 	{
-		Msg("Файл commands.txt не найден", true);
+		Msg("File commands.txt not found", true);
     }
 }
 //---------------------------------------------------------------------------
@@ -1841,25 +1841,25 @@ void __fastcall TMainForm::btnBatchRepackClick(TObject *Sender)
 	bool bInput = false;
 	__Status = mrsBatchRePacking;
 	UnicodeString tmp = ExtractFilePath(edtSourceMap->Text);
-	bInput = InputQuery("Пакетная перепаковка", "Введите папку с исходными файлами:", tmp);
+	bInput = InputQuery("Batch Repack", "Enter folder with source files:", tmp);
 	if(!bInput) return;
 
 	const UnicodeString SourceDir = IncludeTrailingBackslash(tmp);
 	if(!DirectoryExists(SourceDir))
 	{
-    	WriteLog("Директория не существует: " + SourceDir);
+		WriteLog("Directory does not exist: " + SourceDir);
 		return;
 	}
 	tmp = ExtractFilePath(edtDestMap->Text);
-	bInput = InputQuery("Пакетная перепаковка", "Введите папку для перепакованных файлов:", tmp);
+	bInput = InputQuery("Batch Repack", "Enter folder for repacking files:", tmp);
 	if(!bInput) return;
 	const UnicodeString DestDir = IncludeTrailingBackslash(tmp);
 	if(!__MkDir(DestDir))
 	{
-		WriteLog("Ошибка создания директории: " + DestDir);
+		WriteLog("Error creating directory: " + DestDir);
 		return;
-    }
-	const bool bSubDirs = Ask("Перепаковывать карты в подпапках?");
+	}
+	const bool bSubDirs = Ask("Repacking maps in Subfolders?");
 	TStrings* s = new TStringList();
 	FileFinder(SourceDir, "*.*", bSubDirs, (TStringList*)s);
 	MapBatchRepack_FiltrateFileList(s);
@@ -1879,7 +1879,7 @@ void __fastcall TMainForm::btnBatchRepackClick(TObject *Sender)
 	}
 	this->Enabled = true;
 	__Status = mrsIdle;
-	Msg("Пакетная перепаковка завершена!");
+	Msg("Batch Repacking Completed!");
 }
 //---------------------------------------------------------------------------
 UnicodeString War3Exe = "";
@@ -1898,9 +1898,9 @@ void __fastcall TMainForm::btnTestMapClick(TObject *Sender)
 		}
 		VCL_FREE(R);
 	}
-	if(!FileExists(War3Exe)) Msg("Файл war3.exe не найден!", true);
+	if(!FileExists(War3Exe)) Msg("war3.exe file not found!", true);
 	else ExecuteProcess(War3Exe, "", 0);
-	/*else if(!FileExists(edtDestMap->Text)) Msg("Файл карты не найден!", true);
+	/*else if(!FileExists(edtDestMap->Text)) Msg("Map file not found!", true);
 	else
 	{
 		UnicodeString TempMapFile = "Maps\\Test\\WorldEditTestMap" + ExtractFileExt(edtDestMap->Text);

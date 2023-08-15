@@ -1,9 +1,9 @@
-Обесцвечивание текста: 
+Discoloration of text: 
 
 Source: \|c[0-9a-fA-F]{8}([^\|"]*)(\|r)
 Replace: \1
 ---------------------------------------------------------------------------------------------------------------------------------------
-Антиантисингл:
+Remove anti-singleplayer:
 
 Source: set bj_isSinglePlayer=.*\r
 Replace: set bj_isSinglePlayer=false\r

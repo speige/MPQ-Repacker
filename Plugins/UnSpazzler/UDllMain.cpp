@@ -59,10 +59,10 @@ DLLEXPORT int CALLBACK PluginUnload()
 DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 {
 	TPluginInfo Result;
-	Result.szName = "UnSpazzler\0";									// Название плагина
-	Result.szAuthor = "ZxZ666\0";										// Автор
-	Result.szDescription = "Плагин, позволяющий вскрывать карты, защищённые Ken Spazzler'ом\0";	// Описание
-	// Настройки прерываний:
+	Result.szName = "UnSpazzler\0";									
+	Result.szAuthor = "ZxZ666\0";										
+	Result.szDescription = "A plugin that allows you to open maps protected by Ken Spazzler\0";	
+	// Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFilePack = false;	// CODE_FILES_UNPACKED
 	Result.bHookFileUnpack = false;	// CODE_FILES_PACKED

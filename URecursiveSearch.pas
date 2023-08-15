@@ -1,4 +1,4 @@
-unit URecursiveSearch;
+п»їunit URecursiveSearch;
 
 interface
 uses Classes, SysUtils, StdCtrls, Windows, Forms;
@@ -64,24 +64,24 @@ procedure CaptureConsoleOutput(const ACommand, AParameters: String; AMemo: TMemo
    end;
 end;
 { **** UBPFD *********** by delphibase.endimus.com ****
->> Удаление непустого каталога вместе с подкаталогами
+>> Removing a non-empty directory along with subdirectories
 
-Удаление подкаталогов рекурсивное - функция вызывает саму себя.
-Описание назначения агрументов:
+Deleting subdirectories recursively - the function calls itself.
+Description of the purpose of the arguments:
 
--DeleteAllFilesAndFolder - если TRUE то функцией будут предприняты
-попытки для установки атрибута faArchive любому файлу или папке
-перед его(её) удалением;
+-DeleteAllFilesAndFolder - If TRUE then the function will be done
+Trying to set the faArchive attribute to any file or folder
+before its (eВё) removal;
 
--StopIfNotAllDeleted - если TRUE то работа функции моментально
-прекращается если возникла ошибка удаления хотя бы одного файла или папки;
+-StopIfNotAllDeleted - If TRUE then the function works instantly
+stop if an error occurs deleting at least one file or folder;
 
--RemoveRoot - если TRUE, указывает на необходимость удаления корня.
+-RemoveRoot - If TRUE, specifies whether to remove the root.
 
-Зависимости: FileCtrl, SysUtils
-Автор:       lipskiy, lipskiy@mail.ru, ICQ:51219290, Санкт-Петербург
-Copyright:   Собственное написание (lipskiy)
-Дата:        26 апреля 2002 г.
+Dependencies: FileCtrl, SysUtils
+Author: lipskiy, lipskiy@mail.ru, ICQ:51219290, St. Petersburg
+Copyright: Own spelling (lipskiy)
+Date: April 26, 2002
 ***************************************************** }
 function FullRemoveDir(Dir: string; DeleteAllFilesAndFolders,
   StopIfNotAllDeleted, RemoveRoot: boolean): Boolean;
@@ -94,18 +94,18 @@ begin
   if not DirectoryExists(Dir) then
     exit;
   Result := True;
-  // Добавляем слэш в конце и задаем маску - "все файлы и директории"
+  // Add a backslash at the end and set the mask - "all files and directories"
   Dir := IncludeTrailingBackslash(Dir);
   i := FindFirst(Dir + '*', faAnyFile, SRec);
   try
     while i = 0 do
     begin
-      // Получаем полный путь к файлу или директорию
+      // Getting the full path to a file or directory
       FN := Dir + SRec.Name;
-      // Если это директория
+      // If this directory
       if SRec.Attr = faDirectory then
       begin
-        // Рекурсивный вызов этой же функции с ключом удаления корня
+        // Recursive call to this function with the option to remove the root
         if (SRec.Name <> '') and (SRec.Name <> '.') and (SRec.Name <> '..') then
         begin
           if DeleteAllFilesAndFolders then
@@ -116,7 +116,7 @@ begin
             exit;
         end;
       end
-      else // Иначе удаляем файл
+      else // First, delete the file
       begin
         if DeleteAllFilesAndFolders then
           FileSetAttr(FN, faArchive);
@@ -124,7 +124,7 @@ begin
         if not Result and StopIfNotAllDeleted then
           exit;
       end;
-      // Берем следующий файл или директорию
+      // Get the next file or directory
       i := FindNext(SRec);
     end;
   finally
@@ -132,17 +132,17 @@ begin
   end;
   if not Result then
     exit;
-  if RemoveRoot then // Если необходимо удалить корень - удаляем
+  if RemoveRoot then // If it is necessary to remove the root - delete
     if not RemoveDir(Dir) then
       Result := false;
 end;
 procedure FileFinder(Path: string;maska: string;recur: boolean ;sl: TStringList);
 {
-Path  - путь поиска
-maska - маска поиска
-recur - true  - искать и в подкаталогах
-        false - искать только в указанной папке
-sl    - список найденных файлов
+Path - search path
+maska вЂ‹вЂ‹- search mask
+recur - true - search for and in subdirectories
+        false - search only in the specified folder
+sl - list of found files
 }
 var sr : TSearchRec;
 begin

@@ -23,10 +23,10 @@ DLLEXPORT int CALLBACK PluginUnload()
 DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 {
 	TPluginInfo Result;
-	Result.szName = "PatchW3I\0";		// Название плагина
-	Result.szAuthor = "ZxZ666\0";							// Автор
-	Result.szDescription = "Патчит файл war3map.w3i, избавляя от ошибки редактора WERandomGroupSet, но сохраняет оригинальное описание карты.\0";	// Описание
-	// Настройки прерываний:
+	Result.szName = "PatchW3I\0";
+	Result.szAuthor = "ZxZ666\0";
+	Result.szDescription = "Patch the war3map.w3i file, fixes the WERandomGroupSet editor error, but retains the original map description.\0";
+	// Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFileUnpack = true;	// CODE_FILES_UNPACKED
 	Result.bHookFilePack = false;	// CODE_FILES_PACKED
@@ -112,16 +112,16 @@ void PatchTFTW3i(const UnicodeString w3i)
 		b->WriteInt(0);
 		b->WriteInt(0);
 		b->WriteByte(0xFF);
-		b->CutThere(); // Обрезать файл
+		b->CutThere(); // trim file
 	}
 //    j = b->ReadInt(); // UTCOUNT (Random Unit Tables)
 //	LOOP(j)
 //	{
 //		b->WriteInt(0);
 //	}
-	b->SaveToFile(w3i); // Сохранить в war3map.w3i
+	b->SaveToFile(w3i); // Сguard in war3map.w3i
 	VCL_FREE(b);
-	API_WriteLog("PatchW3I: Файл war3map.w3i пропатчен! (TFT)");
+	API_WriteLog("PatchW3I: 'file war3map.w3i patched! (TFT)");
 }
 void PatchROCW3i(const UnicodeString w3i)
 {
@@ -177,29 +177,29 @@ void PatchROCW3i(const UnicodeString w3i)
 	{
 		b->WriteInt(0);
 		b->WriteByte(0xFF);
-        b->CutThere(); // Обрезать файл
+        b->CutThere(); // trim file
 	}
 //    j = b->ReadInt(); // UTCOUNT (Random Unit Tables)
 //	LOOP(j)
 //	{
 //		b->WriteInt(0);
 //	}
-	b->SaveToFile(w3i); // Сохранить в war3map.w3i
+	b->SaveToFile(w3i); // -keep in war3map.w3i
 	VCL_FREE(b);
-	API_WriteLog("PatchW3I: Файл war3map.w3i пропатчен! (RoC)");
+	API_WriteLog("PatchW3I: 'file war3map.w3i patched! (RoC)");
 }
 DLLEXPORT int CALLBACK ReceiveCode(int Code)
 {
 	if(Code != CODE_FILES_UNPACKED) return ERROR_INVALID_PARAMETER;
 	if(API_GetFlagState(bReplaceW3I))
 	{
-		API_WriteLog("PatchW3I: Включена замена W3I - пропатчивание отменено!");
+		API_WriteLog("PatchW3I: W3I replacement enabled - patching canceled!");
 		return 0;
     }
 	const UnicodeString w3i = API_GetTempPath() + "war3map.w3i";
 	if(!FileExists(w3i))
 	{
-		API_WriteLog("PatchW3I: Файл war3map.w3i не найден!");
+		API_WriteLog("PatchW3I: 'file war3map.w3i not found!");
 		return ERROR_FILE_NOT_FOUND;
 	}
 	try

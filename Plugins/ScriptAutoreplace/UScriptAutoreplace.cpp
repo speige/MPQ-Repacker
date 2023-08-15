@@ -66,10 +66,10 @@ DLLEXPORT int CALLBACK PluginUnload()
 DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 {
 	TPluginInfo Result;
-	Result.szName = "Script Autoreplace\0";									// Название плагина
-	Result.szAuthor = "ZxZ666\0";										// Автор
-	Result.szDescription = "Плагин делает автозамену в файле war3map.j (поддерживаются регулярные выражения)\0";	// Описание
-    // Настройки прерываний:
+	Result.szName = "Script Autoreplace\0";
+	Result.szAuthor = "ZxZ666\0";
+	Result.szDescription = "The plugin does autocorrect in the war3map.j file (regular expressions are supported)\0";
+	// Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFileUnpack = true;	// CODE_FILES_UNPACKED
 	Result.bHookFilePack = false;	// CODE_FILES_PACKED
@@ -108,7 +108,7 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 	VCL_FREE(re);
 	return GetLastError();
 }
-DLLEXPORT int CALLBACK PluginSettings() // Настройки
+DLLEXPORT int CALLBACK PluginSettings() // Settings
 {
     frmReplacesEdit = new TfrmReplacesEdit(NULL);
 	frmReplacesEdit->mmoSource->Text = Source->Text;
@@ -125,10 +125,10 @@ DLLEXPORT int CALLBACK PluginSettings() // Настройки
 }
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fwdreason, LPVOID lpvReserved)
 {
-	// Лучше не писать здесь ничего, для этого есть функции PluginLoad() и PluginUnload().
-	// DllMain(DLL_PROCESS_ATTACH) вызывается не только при включении плагина,
-	// но и при загрузке для получения информации о нём (RegisterPlugin),
-	// а PluginLoad/PluginUnload вызываются соответственно только при включении/выключении
+	// It's better not to write anything here, there are PluginLoad() and PluginUnload() functions for this.
+	// DllMain(DLL_PROCESS_ATTACH) is called not only when the plugin is enabled,
+	// but also when loading to get information about it (RegisterPlugin),
+	// and PluginLoad/PluginUnload are called respectively only when enabled/disabled
     return 1;
 }
 //---------------------------------------------------------------------------

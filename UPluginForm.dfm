@@ -3,7 +3,7 @@ object frmPlugins: TfrmPlugins
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = #1055#1083#1072#1075#1080#1085#1099
+  Caption = 'Plugins'
   ClientHeight = 212
   ClientWidth = 457
   Color = clBtnFace
@@ -26,7 +26,7 @@ object frmPlugins: TfrmPlugins
     Width = 215
     Height = 174
     AutoSize = False
-    Caption = #1040#1074#1090#1086#1088': '#13#10#1053#1072#1079#1074#1072#1085#1080#1077': '#13#10#1054#1087#1080#1089#1072#1085#1080#1077': '
+    Caption = 'Author: '#13#10'Name: '#13#10'Description: '
     WordWrap = True
   end
   object chklstPlugins: TCheckListBox
@@ -45,7 +45,7 @@ object frmPlugins: TfrmPlugins
     Top = 184
     Width = 215
     Height = 25
-    Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1087#1083#1072#1075#1080#1085#1072
+    Caption = 'Plugin settings'
     Enabled = False
     TabOrder = 1
     OnClick = btnSettingsClick

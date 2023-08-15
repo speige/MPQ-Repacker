@@ -26,10 +26,10 @@ DLLEXPORT int CALLBACK PluginUnload()
 DLLEXPORT TPluginInfo CALLBACK RegisterPlugin()
 {
 	TPluginInfo Result;
-	Result.szName = "Extendable Cheatpack Detector\0";		// Название плагина
-	Result.szAuthor = "ZxZ666\0";							// Автор
-	Result.szDescription = "Ищет чит-паки в картах, заменяет активатор.\0";	// Описание
-    // Настройки прерываний:
+	Result.szName = "Extendable Cheatpack Detector\0";
+	Result.szAuthor = "ZxZ666\0";
+	Result.szDescription = "Looks for cheat packs in maps, replaces the activator.\0";
+	// Interrupt settings:
 	Result.bHookFileFind = false;	// CODE_FILE_SEARCH_START и CODE_FILE_SEARCH_END
 	Result.bHookFileUnpack = true;	// CODE_FILES_UNPACKED
 	Result.bHookFilePack = false;	// CODE_FILES_PACKED
@@ -86,7 +86,7 @@ void SaveCfg(bool bReplaceActivator, TStrings* s)
 UnicodeString FindActivator(const UnicodeString Source, const UnicodeString SearchStr, const char EndChar = '"')
 {
 	int Pos = Source.Pos(SearchStr) + SearchStr.Length();
-	if (Pos == SearchStr.Length()) return ""; // Строка не найдена
+	if (Pos == SearchStr.Length()) return ""; // Row not found
 	int Pos2 = Pos;
 	while (Source[Pos2] != EndChar) Pos2++;
 	const unsigned int InfoLength = Pos2 - Pos;
@@ -116,7 +116,7 @@ bool SearchForCheatpack(UnicodeString &Activator)
 		return false;
 	}
 
-	if(API_GetFlagState(bInsertCheats)) API_WriteLog("[CheatPack Detector] Осторожно! Плагин не сможет предотвратить вставку чит-пака в карту!");
+	if(API_GetFlagState(bInsertCheats)) API_WriteLog("[CheatPack Detector] Warning! The plugin will not be able to prevent inserting a cheat pack into the map!");
 	TStrings* j = new TStringList();
 	TStrings* s = new TStringList();
 	// s->LoadFromFile(CpSearch);
@@ -162,19 +162,19 @@ DLLEXPORT int CALLBACK ReceiveCode(int Code)
 		UnicodeString Activator = "";
 		if(SearchForCheatpack(Activator))
 		{
-			const UnicodeString msgtext = "Чит-пак найден! \nАктиватор: " + AddQuotes(Activator);
+			const UnicodeString msgtext = "Cheatpack found! \nActivator: " + AddQuotes(Activator);
 			API_WriteLog(BUF(msgtext));
 			Msg(msgtext);
 			if(bReplaceActivator)
 			{
-				const UnicodeString NewActivator = InputBox("Extendable Cheatpack Detector", "Новый активатор:", "");
+				const UnicodeString NewActivator = InputBox("Extendable Cheatpack Detector", "New activator:", "");
 				if(NewActivator.Length()) ReplaceActivator(Activator, NewActivator);
 			}
 		}
 	}
 	return GetLastError();
 }
-DLLEXPORT int CALLBACK PluginSettings() // Настройки
+DLLEXPORT int CALLBACK PluginSettings() // Settings
 {
 	frmSettings = new TfrmSettings(NULL);
 	// frmSettings->chkReplaceActivator->Checked = bReplaceActivator;

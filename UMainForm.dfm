@@ -28,21 +28,21 @@ object MainForm: TMainForm
     Top = 11
     Width = 86
     Height = 13
-    Caption = #1048#1089#1093#1086#1076#1085#1072#1103' '#1082#1072#1088#1090#1072':'
+    Caption = 'Source map:'
   end
   object lblDestMap: TLabel
     Left = 8
     Top = 38
     Width = 57
     Height = 13
-    Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090':'
+    Caption = 'Destination:'
   end
   object lblTempDir: TLabel
     Left = 8
     Top = 65
     Width = 91
     Height = 13
-    Caption = #1042#1088#1077#1084#1077#1085#1085#1072#1103' '#1087#1072#1087#1082#1072':'
+    Caption = 'Temp folder:'
   end
   object mmoLog: TMemo
     Left = 0
@@ -63,7 +63,7 @@ object MainForm: TMainForm
     Width = 444
     Height = 21
     AddQuotes = False
-    Filter = #1042#1089#1077' '#1092#1072#1081#1083#1099' (*.*)|*.*|'#1050#1072#1088#1090#1099' Warcraft 3 (*.w3m, *.w3x)|*.w3m;*.w3x'
+    Filter = 'All files (*.*)|*.*| Warcraft 3 Maps (*.w3m, *.w3x)|*.w3m;*.w3x'
     FilterIndex = 2
     DialogOptions = [ofFileMustExist]
     Anchors = [akRight]
@@ -88,15 +88,15 @@ object MainForm: TMainForm
     Width = 542
     Height = 117
     Anchors = [akLeft, akRight]
-    Caption = #1054#1087#1094#1080#1080
+    Caption = 'Options'
     TabOrder = 4
     object lblExtFileList: TLabel
       Left = 287
       Top = 63
       Width = 100
       Height = 13
-      Hint = #1045#1089#1083#1080' '#1085#1077' '#1089#1091#1097#1077#1089#1090#1074#1091#1077#1090', '#1080#1089#1087#1086#1083#1100#1079#1091#1077#1090#1089#1103' '#1074#1089#1090#1088#1086#1077#1085#1085#1099#1081'.'
-      Caption = #1042#1085#1077#1096#1085#1080#1081' '#1083#1080#1089#1090#1092#1072#1081#1083':'
+      Hint = 'If it doesn'#39't exist, the built-in one is used.'
+      Caption = 'External listfile:'
       ParentShowHint = False
       ShowHint = True
     end
@@ -105,7 +105,7 @@ object MainForm: TMainForm
       Top = 16
       Width = 201
       Height = 17
-      Caption = #1047#1072#1087#1072#1082#1086#1074#1099#1074#1072#1090#1100' '#1082#1072#1088#1090#1091' X-Deprotect'#39#1086#1084
+      Caption = 'Pack the map with X-Deprotect'
       Checked = True
       ParentShowHint = False
       ShowHint = False
@@ -117,7 +117,7 @@ object MainForm: TMainForm
       Top = 39
       Width = 169
       Height = 17
-      Caption = #1059#1076#1072#1083#1103#1090#1100' '#1074#1088#1077#1084#1077#1085#1085#1099#1077' '#1092#1072#1081#1083#1099
+      Caption = 'Delete temporary files'
       Checked = True
       State = cbChecked
       TabOrder = 3
@@ -128,9 +128,9 @@ object MainForm: TMainForm
       Width = 225
       Height = 17
       Hint = 
-        #1042#1082#1083#1102#1095#1080#1090#1077' '#1101#1090#1091' '#1086#1087#1094#1080#1102' '#1077#1089#1083#1080' '#1093#1086#1090#1080#1090#1077' '#1074#1085#1077#1089#1090#1080' '#1080#1079#1084#1077#1085#1077#1085#1080#1103' '#1074' '#1092#1072#1081#1083#1099' '#1087#1077#1088#1077#1076' '#1091#1087 +
-        #1072#1082#1086#1074#1082#1086#1081'.'
-      Caption = #1057#1076#1077#1083#1072#1090#1100' '#1087#1072#1091#1079#1091' '#1087#1077#1088#1077#1076' '#1091#1087#1072#1082#1086#1074#1082#1086#1081' '#1092#1072#1081#1083#1086#1074
+        'Check this option if you want to make changes to files before pa' +
+        'cking.'
+      Caption = 'Pause before packing files'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
@@ -150,10 +150,10 @@ object MainForm: TMainForm
       Width = 225
       Height = 17
       Hint = 
-        #1048#1079#1073#1072#1074#1083#1103#1077#1090' '#1086#1090' '#1086#1096#1080#1073#1082#1080' "'#1053#1077#1076#1086#1089#1090#1072#1090#1086#1095#1085#1086' '#1087#1072#1084#1103#1090#1080' '#1076#1083#1103' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1082#1086#1084#1072#1085#1076#1099'. ' +
-        'Object: WERandomGroupSet",'#13#10#1085#1086' '#1080#1084#1103' '#1082#1072#1088#1090#1099' '#1073#1091#1076#1077#1090' '#1080#1079#1084#1077#1085#1077#1085#1086' '#1085#1072' "'#1045#1097#1077' ' +
-        #1086#1076#1085#1072' '#1082#1072#1088#1090#1072'".'
-      Caption = #1047#1072#1084#1077#1085#1103#1090#1100' '#1092#1072#1081#1083' war3map.w3i'
+        'Fixes the error "Not enough memory to process the command. Objec' +
+        't: WERandomGroupSet", but the name of the map will be changed to' +
+        ' "Another map".'
+      Caption = 'Replace file war3map.w3i'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
@@ -163,8 +163,8 @@ object MainForm: TMainForm
       Top = 84
       Width = 217
       Height = 17
-      Hint = #1042#1082#1083#1102#1095#1080#1090#1077', '#1095#1090#1086#1073#1099' '#1074#1099#1090#1072#1089#1082#1080#1074#1072#1090#1100' '#1092#1072#1081#1083#1099' '#1089' '#1085#1077#1080#1079#1074#1077#1089#1090#1085#1099#1084#1080' '#1080#1084#1077#1085#1072#1084#1080'.'
-      Caption = #1056#1072#1089#1087#1072#1082#1086#1074#1099#1074#1072#1090#1100' '#1085#1077#1080#1079#1074#1077#1089#1090#1085#1099#1077' '#1092#1072#1081#1083#1099
+      Hint = 'Enable to pull files with unknown names.'
+      Caption = 'Unpack unknown files'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
@@ -174,7 +174,7 @@ object MainForm: TMainForm
       Top = 85
       Width = 97
       Height = 17
-      Caption = #1042#1089#1090#1072#1074#1083#1103#1090#1100' '#1095#1080#1090#1099
+      Caption = 'Embed cheats'
       Checked = True
       State = cbChecked
       TabOrder = 7
@@ -185,10 +185,9 @@ object MainForm: TMainForm
       Width = 177
       Height = 17
       Hint = 
-        #1048#1079#1073#1072#1074#1083#1103#1077#1090' '#1086#1090' '#1086#1096#1080#1073#1082#1080' "'#1048#1085#1092#1086#1088#1084#1072#1094#1080#1103' '#1086' '#1074#1086#1081#1089#1082#1072#1093' '#1086#1090#1089#1091#1090#1089#1090#1074#1091#1077#1090' '#1080#1083#1080' '#1085#1077#1074#1077#1088#1085 +
-        #1072'"'#13#10'('#1045#1089#1083#1080' '#1086#1085' '#1085#1077' '#1091#1076#1072#1083#1077#1085' '#1080#1079' '#1082#1072#1088#1090#1099', '#1087#1088#1086#1075#1088#1072#1084#1084#1072' '#1085#1077' '#1073#1091#1076#1077#1090' '#1077#1075#1086' '#1079#1072#1084#1077#1085#1103#1090#1100 +
-        ')'
-      Caption = #1055#1091#1089#1090#1086#1081' war3mapUnits.doo'
+        'Eliminates the error "Information about the troops is missing or' +
+        ' incorrect"'
+      Caption = 'Empty war3mapUnits.doo'
       Checked = True
       ParentShowHint = False
       ShowHint = True
@@ -211,7 +210,7 @@ object MainForm: TMainForm
     Top = 340
     Width = 256
     Height = 47
-    Caption = #1055#1077#1088#1077#1089#1086#1073#1088#1072#1090#1100' '#1082#1072#1088#1090#1091
+    Caption = 'Rebuild the map'
     ImageIndex = 3
     ImageMargins.Left = 3
     Images = imglist
@@ -224,14 +223,14 @@ object MainForm: TMainForm
     Width = 542
     Height = 95
     Anchors = [akLeft, akRight]
-    Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1095#1080#1090#1086#1074
+    Caption = 'cheat settings'
     TabOrder = 5
     object lblActivator: TLabel
       Left = 99
       Top = 53
       Width = 59
       Height = 13
-      Caption = #1040#1082#1090#1080#1074#1072#1090#1086#1088':'
+      Caption = 'Activator:'
     end
     object cbbCheatPack: TComboBox
       Left = 99
@@ -265,7 +264,7 @@ object MainForm: TMainForm
       Top = 23
       Width = 122
       Height = 49
-      Caption = #1050#1086#1084#1072#1085#1076#1099
+      Caption = 'Commands'
       TabOrder = 1
       OnClick = btnCommandsClick
     end
@@ -275,7 +274,7 @@ object MainForm: TMainForm
     Top = 388
     Width = 256
     Height = 47
-    Caption = #1055#1083#1072#1075#1080#1085#1099
+    Caption = 'Plugins'
     ImageIndex = 1
     ImageMargins.Left = 3
     Images = imglist
@@ -287,7 +286,7 @@ object MainForm: TMainForm
     Top = 340
     Width = 256
     Height = 47
-    Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1099#1077' '#1085#1072#1089#1090#1088#1086#1081#1082#1080
+    Caption = 'Additional settings'
     ImageIndex = 2
     ImageMargins.Left = 3
     Images = imglist
@@ -300,7 +299,7 @@ object MainForm: TMainForm
     Width = 541
     Height = 25
     Anchors = [akLeft, akRight]
-    Caption = #1055#1072#1082#1077#1090#1085#1072#1103' '#1087#1077#1088#1077#1087#1072#1082#1086#1074#1082#1072
+    Caption = 'Batch repacking'
     TabOrder = 3
     OnClick = btnBatchRepackClick
   end
@@ -309,7 +308,7 @@ object MainForm: TMainForm
     Top = 388
     Width = 256
     Height = 47
-    Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100' Warcraft III'
+    Caption = 'Launch in Warcraft III'
     ImageIndex = 0
     ImageMargins.Left = 3
     Images = imglist
