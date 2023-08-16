@@ -1076,7 +1076,7 @@ bool ExtractAllFiles(const UnicodeString Archive, bool bRewriteW3I, bool bRewrit
 			SFileOpenArchive(BUF(Archive), 0, 0, &hMPQ);
 			if(!HANDLE_VALID(hMPQ))
 			{
-				WriteLog("Ошибка распаковки файлов.");
+				WriteLog("File unpacking error.");
 				return 0;
             }
 			for(int i = 0; i < s->Count; i++)
