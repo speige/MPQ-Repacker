@@ -12,6 +12,7 @@
 
 ## Execution
 Run MPQRepacker.exe in Releases/version folder
+Some anti-virus programs give warnings, this seems to be false and is probably safe to ignore. Please submit a pull request if you know how to fix it.
 
 ## Compiling
 Open MPQRepacker.cbproj with C++ Builder 2010 (Newer versions of the IDE are not yet supported)
