@@ -1,12 +1,10 @@
 #!usr/bin/perl
 use File::Spec::Functions qw(rel2abs catfile);
 use Cwd;
-use print_r qw(print_r);
 use strict;
 
 #print File::Spec->rel2abs('../foo/../bar'); exit;
-#print rel2abs('../foo/../bar');
-#exit;
+#print rel2abs('../foo/../bar'); exit;
 
 my $cwd = cwd;
 my %path;
@@ -48,9 +46,8 @@ $path{'outmapfile'} = rel2abs($cfg{'outmapfile'});
 my $mapbasename = substr($path{'inmapfile'}, rindex($path{'inmapfile'}, "\\") + 1);
 $path{'temp'} = rel2abs("$mapbasename.temp");
 $path{'mapfiles'} = "$path{'temp'}\\files";
-$path{'sfmpq'} = "$cwd\\sfmpq";
+$path{'sfmpq'} = "$cwd\\sfmpq.exe";
 $path{'listfile'} = "$cwd\\listfile.txt";
-
 
 ## create temporary directories
 
@@ -113,7 +110,9 @@ else
 	{
 		## match current listfile against archive
 		
-		`"$path{'sfmpq'}" l -l "$scanlistfile" "$path{'inmapfile'}" "$templistfile" 2>nul`;
+		## 2>nul redirects standard err to a file called nul. stdout will still direct to console
+		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" l -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\" 2>nul");
+		system("unix2dos \"$templistfile\"");
 		(-e $templistfile) || die_error("Failed to extract MPQ archive $cfg{'inmapfile'}\nsfmpq.exe or sfmpq.dll are missing or damaged");
 
 		## find any file names not retrieved before
@@ -153,8 +152,8 @@ else
 
 		## do extraction
 
-#		print_progress_cmd("$path{'sfmpq'} x -l \"$scanlistfile\" \"$path{'inmapfile'}\" \"$templistfile\"");
-		system("\"$path{'sfmpq'}\" x -l \"$scanlistfile\" \"$path{'inmapfile'}\" \"$templistfile\"");
+		## 2>nil redirects standard err to a file called nil. stdout will still direct to console
+		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" x -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\" 2>nil");
 		my $newfiles = @newfiles;
 		print "$newfiles files extracted to '$path{'mapfiles'}'";
 
@@ -325,6 +324,16 @@ wait_enter() if $cfg{'pause_onsuccess'};
 
 
 
+#built-in Cwd uses linux paths like /c/ instead of c:\. This fails when passing as parameters to sfmpq.exe because it doesn't understand the linux format.
+sub absLinuxToWindowsPath
+{
+	my $linuxPath = $_[0];
+	$linuxPath =~ /^\/[a-zA-Z]\//  or die_error("not a valid absolute path in linux!");	
+	my $result = substr($linuxPath, 1, 1) . ":" . substr($linuxPath, 2);
+	$result =~ s/\//\\/g;
+	$result =~ s/\\/\\\\/g;
+	return $result;
+}
 
 ## clean_temp
 ## 	removes temporary directory

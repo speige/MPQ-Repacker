@@ -16,8 +16,10 @@ Some anti-virus programs give warnings, this seems to be false and is probably s
 
 ## Compiling
 Open MPQRepacker.cbproj with C++ Builder 2010 (Newer versions of the IDE are not yet supported)
+xdep.pl can be compiled to xdep.exe using Strawberry Perl with PAR cpan module
 
 ### Dependencies
+- Strawberry Perl https://strawberryperl.com/
 - JEDI Code Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27211
 - JEDI Visual Component Library for 2010 http://cc.embarcadero.com/Download.aspx?id=27212
 - FlexCompress for 2010 https://www.componentace.com/download/download.php?editionid=14
