@@ -109,7 +109,6 @@ else
 		## match current listfile against archive
 		
 		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" l -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
-		system("unix2dos \"$templistfile\"");
 		(-e $templistfile) || die_error("Failed to extract MPQ archive $cfg{'inmapfile'}\nsfmpq.exe or sfmpq.dll are missing or damaged");
 
 		## find any file names not retrieved before
@@ -150,6 +149,7 @@ else
 		## do extraction
 
 		## 2>nil redirects standard err to a file called nil. stdout will still direct to console
+		system("unix2dos \"$templistfile\"");
 		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" x -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
 		my $newfiles = @newfiles;
 		print "$newfiles files extracted to '$path{'mapfiles'}'";
@@ -281,6 +281,8 @@ if ($cfg{'build_w3x'})
 	my $files = @files;
 
 	my $max_files = (@files)*2;
+	system("unix2dos \"$templistfile\"");
+	system("unix2dos \"$scanlistfile\"");
 	system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" a -m $max_files \"" . absLinuxToWindowsPath($tempmpqfile) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
 	system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" a -m $max_files \"" . absLinuxToWindowsPath($tempmpqfile) . "\" \"" . absLinuxToWindowsPath($scanlistfile) . "\"");
 	print_progress("Added $files files");
