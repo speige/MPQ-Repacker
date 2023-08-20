@@ -63,8 +63,6 @@ clean_temp() if ($cfg{'clean_temp_onstart'});
 
 chdir $path{'mapfiles'};
 
-
-
 my $scanlistfile = catfile($path{'temp'}, 'listfile.txt');
 my $templistfile = catfile($path{'temp'}, 'files.txt');
 
@@ -283,7 +281,8 @@ if ($cfg{'build_w3x'})
 
 	my $files = @files;
 
-	print_progress_cmd("\"$path{'sfmpq'}\" a \"$tempmpqfile\" \"$templistfile\"");
+	my $max_files = (@files)*2;
+	system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" a -m $max_files \"" . absLinuxToWindowsPath($tempmpqfile) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
 	print_progress("Added $files files");
 	print "";
 	(-e $tempmpqfile) || die_error("Failed to create output MPQ archive\nsfmpq.exe or sfmpq.dll are missing or damaged");
@@ -331,7 +330,6 @@ sub absLinuxToWindowsPath
 	$linuxPath =~ /^\/[a-zA-Z]\//  or die_error("not a valid absolute path in linux!");	
 	my $result = substr($linuxPath, 1, 1) . ":" . substr($linuxPath, 2);
 	$result =~ s/\//\\/g;
-	$result =~ s/\\/\\\\/g;
 	return $result;
 }
 
@@ -355,7 +353,7 @@ sub clean_temp
 
 sub construct_files_list
 {
-	my $dir = shift;
+	my $dir = $_[0];
 	my $prefix = ($dir eq '.' ? '' : "$dir\\");
 	my @res;
 
@@ -842,7 +840,8 @@ sub replace_tokens
 
 sub scan_file
 {
-	my $filename = shift;
+	my $filename = $_[0];
+	print("scanning $filename");
 	open(FILE, "$filename") || return;
 	binmode FILE;
 	my $line = '';
@@ -886,26 +885,13 @@ sub scan_file
 sub print_progress
 {
 	local $\ = "";
-	my $msg = substr(shift, 0, 79);
+	my $msg = substr($_[0], 0, 79);
 	$msg .= (" " x (79 - length($msg))) . "\r";
 	print $msg;		
 }
 
 
 ## executes shell cmd, printing its output in single re-writable line
-
-sub print_progress_cmd
-{
-	my $cmd = shift;
-	local $\ = "";
-	open(CMD, "$cmd|");
-	while(<CMD>)
-	{
-		chomp;
-		print_progress($_);	
-	}
-}
-
 
 ## waits for a key
 sub wait_enter
@@ -918,7 +904,7 @@ sub wait_enter
 
 sub die_error
 {
-	my $msg = shift;
+	my $msg = $_[0];
 	print STDERR "Fatal Error: $msg";
 	clean_temp() if $cfg{'clean_temp_onerror'};
 	wait_enter() if $cfg{'pause_onerror'};
