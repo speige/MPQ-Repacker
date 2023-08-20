@@ -870,13 +870,13 @@ sub scan_file
 	}
 
 #	while ($line =~ /\b([\\\/a-zA-Z_0-9. -]*)\b/gi)
-	while ($line =~ /\b([!@#$%^+\\\/a-zA-Z_0-9. -]{,1000})\b/gi)
-	{
-		my $path = $1;
-		$scan_res{"$path" . "_Portrait.mdx"} = 1;
-		$scan_res{"$path.mdx"} = 1;
-		$scan_res{"$path.mdl"} = 1;
-	}
+	#while ($line =~ /\b([!@#$%^+\\\/a-zA-Z_0-9. -]{,1000})\b/gi)
+	#{
+	#	my $path = $1;
+	#	$scan_res{"$path" . "_Portrait.mdx"} = 1;
+	#	$scan_res{"$path.mdx"} = 1;
+	#	$scan_res{"$path.mdl"} = 1;
+	#}
 	close FILE;
 }
 
