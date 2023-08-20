@@ -108,8 +108,7 @@ else
 	{
 		## match current listfile against archive
 		
-		## 2>nul redirects standard err to a file called nul. stdout will still direct to console
-		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" l -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\" 2>nul");
+		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" l -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
 		system("unix2dos \"$templistfile\"");
 		(-e $templistfile) || die_error("Failed to extract MPQ archive $cfg{'inmapfile'}\nsfmpq.exe or sfmpq.dll are missing or damaged");
 
@@ -151,7 +150,7 @@ else
 		## do extraction
 
 		## 2>nil redirects standard err to a file called nil. stdout will still direct to console
-		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" x -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\" 2>nil");
+		system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" x -l \"" . absLinuxToWindowsPath($scanlistfile) . "\" \"" . absLinuxToWindowsPath($path{'inmapfile'}) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
 		my $newfiles = @newfiles;
 		print "$newfiles files extracted to '$path{'mapfiles'}'";
 
@@ -283,6 +282,7 @@ if ($cfg{'build_w3x'})
 
 	my $max_files = (@files)*2;
 	system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" a -m $max_files \"" . absLinuxToWindowsPath($tempmpqfile) . "\" \"" . absLinuxToWindowsPath($templistfile) . "\"");
+	system("\"" . absLinuxToWindowsPath($path{'sfmpq'}) . "\" a -m $max_files \"" . absLinuxToWindowsPath($tempmpqfile) . "\" \"" . absLinuxToWindowsPath($scanlistfile) . "\"");
 	print_progress("Added $files files");
 	print "";
 	(-e $tempmpqfile) || die_error("Failed to create output MPQ archive\nsfmpq.exe or sfmpq.dll are missing or damaged");
