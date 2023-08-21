@@ -10,8 +10,8 @@ my $cwd = cwd;
 my %path;
 my %cfg = ('pause_onerror', 1);
 
-my $version = '2006-10-02';
-my $copynotice = "// Map deprotected by X-deprotect (version $version) by zibada\r\n// http://dimon.xgm.ru/xdep/\r\n// Visit our modmaking community at http://xgm.ru/\r\n\r\n";
+my $version = '2023-08-20';
+my $copynotice = "// Map deprotected by X-deprotect (version $version) https://github.com/speige/MPQ-Repacker - Originally by zibada\r\n// https://web.archive.org/web/*/http://dimon.xgm.ru/xdep \r\n// Visit our modmaking community at https://web.archive.org/web/*/http://xgm.ru/\r\n\r\n";
 
 
 ## parse configuration file
@@ -300,18 +300,26 @@ if ($cfg{'build_w3x'})
 	sysread(SRCMAP, $header, 512);
 	close SRCMAP;
 
-	open (OUTMAP, ">$path{'outmapfile'}") || die_error("Cannot open target map file: $cfg{'outmapfile'}");
-	binmode OUTMAP;
-	syswrite(OUTMAP, $header, 512);
-	open (MPQ, "$tempmpqfile") || die_error("Failed to create output MPQ archive\nsfmpq.exe or sfmpq.dll are missing or damaged");
-	binmode MPQ;
-	while (<MPQ>)
-	{
-		print OUTMAP $_;
+	if ($header =~ m/^HM3W/)
+	{		
+		print("Copying HM3W header");
+		open (OUTMAP, ">$path{'outmapfile'}") || die_error("Cannot open target map file: $cfg{'outmapfile'}");
+		binmode OUTMAP;
+		syswrite(OUTMAP, $header, 512);
+		open (MPQ, "$tempmpqfile") || die_error("Failed to create output MPQ archive\nsfmpq.exe or sfmpq.dll are missing or damaged");
+		binmode MPQ;
+		while (<MPQ>)
+		{
+			print OUTMAP $_;
+		}
+		close MPQ;
+		close OUTMAP;
 	}
-	close MPQ;
-	close OUTMAP;
-
+	else 
+	{
+		system("cp \"$tempmpqfile\" \"$path{'outmapfile'}\"");
+	}
+	
 	print "Created map '$cfg{'outmapfile'}'\n";
 }
 
