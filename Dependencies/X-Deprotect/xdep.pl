@@ -336,9 +336,13 @@ wait_enter() if $cfg{'pause_onsuccess'};
 #built-in Cwd uses linux paths like /c/ instead of c:\. This fails when passing as parameters to sfmpq.exe because it doesn't understand the linux format.
 sub absLinuxToWindowsPath
 {
-	my $linuxPath = $_[0];
-	$linuxPath =~ /^\/[a-zA-Z]\//  or die_error("not a valid absolute path in linux!");	
-	my $result = substr($linuxPath, 1, 1) . ":" . substr($linuxPath, 2);
+	my $result = $_[0];
+	
+	if ($result =~ /^\/[a-zA-Z]\//)
+	{
+		$result = substr($result, 1, 1) . ":" . substr($result, 2);
+	}
+	
 	$result =~ s/\//\\/g;
 	return $result;
 }
