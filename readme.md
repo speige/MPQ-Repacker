@@ -1,7 +1,10 @@
 # MPQ RePacker - Program for reassembling Warcraft 3 maps.
 
 https://www.youtube.com/watch?v=5OrON63GQkI
-[![Tutorial](https://img.youtube.com/vi/5OrON63GQkI/maxresdefault.jpg)](https://www.youtube.com/watch?v=5OrON63GQkI)
+[![Deprotection Tutorial](https://img.youtube.com/vi/5OrON63GQkI/maxresdefault.jpg)](https://www.youtube.com/watch?v=5OrON63GQkI)
+
+https://www.youtube.com/watch?v=Og1bGnSEoy8
+[![War3Map.j Hacking Tutorial](https://img.youtube.com/vi/Og1bGnSEoy8/maxresdefault.jpg)](https://www.youtube.com/watch?v=Og1bGnSEoy8)
 
 ## Features
 - Inserting a cheat-pack
