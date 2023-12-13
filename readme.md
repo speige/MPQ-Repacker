@@ -1,5 +1,7 @@
 # MPQ RePacker - Program for reassembling Warcraft 3 maps.
 
+## Deprecated - Use https://github.com/speige/wc3mapdeprotector instead
+
 https://www.youtube.com/watch?v=5OrON63GQkI
 [![Deprotection Tutorial](https://img.youtube.com/vi/5OrON63GQkI/maxresdefault.jpg)](https://www.youtube.com/watch?v=5OrON63GQkI)
 
